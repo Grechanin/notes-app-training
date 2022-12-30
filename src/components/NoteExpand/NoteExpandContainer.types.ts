@@ -1,5 +1,5 @@
-import {Note} from "../../redux/notes-reducer.types";
+import { Note } from '../../redux/notes-reducer.types';
 
 export type NoteExpandProps = {
-    notes: Note[]
-}
+  notes: Note[];
+};

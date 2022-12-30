@@ -1,6 +1,5 @@
-import {Comment} from "../../../redux/notes-reducer.types";
-
+import { Comment } from '../../../redux/notes-reducer.types';
 
 export type CommentsListProps = {
-    comments: Comment[]
-}
+  comments: Comment[];
+};

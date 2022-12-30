@@ -1,25 +1,21 @@
-import Note from "./NoteList/Note/Note";
-import {NotesListProps} from "./NotesBox.types";
-import React from "react";
-import CreateNewNote from "./CreateNewNote/CreateNewNote";
-import styles from './NotesBox.module.scss'
-import NoteList from "./NoteList/NoteList";
+import React from 'react';
 
+import CreateNewNote from './CreateNewNote/CreateNewNote';
+import Note from './NoteList/Note/Note';
+import NoteList from './NoteList/NoteList';
+import styles from './NotesBox.module.scss';
+import { NotesListProps } from './NotesBox.types';
 
-const NotesBox: React.FC<NotesListProps> = ({notes}) => {
-    return (
+const NotesBox: React.FC<NotesListProps> = ({ notes }) => {
+  return (
+    <div className={styles.notesList}>
+      <NoteList notes={notes} />
 
-        <div className={styles.notesList}>
+      <div className={styles.link}>
+        <CreateNewNote />
+      </div>
+    </div>
+  );
+};
 
-            <NoteList notes={notes}  />
-
-            <div className={styles.link}>
-                <CreateNewNote />
-            </div>
-
-        </div>
-
-    )
-}
-
-export default NotesBox
+export default NotesBox;

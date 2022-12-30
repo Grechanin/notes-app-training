@@ -1,21 +1,17 @@
-import Comment from "./Comment/Comment";
-import styles from './CommentsList.module.scss'
-import React from "react";
-import {CommentsListProps} from "./CommentsList.types";
+import React from 'react';
 
-const CommentsList: React.FC<CommentsListProps> = ({comments}) => (
+import Comment from './Comment/Comment';
+import styles from './CommentsList.module.scss';
+import { CommentsListProps } from './CommentsList.types';
 
-    <div className={styles.commentsList}>
+const CommentsList: React.FC<CommentsListProps> = ({ comments }) => (
+  <div className={styles.commentsList}>
+    <h2>Comments</h2>
 
-        <h2>Comments</h2>
+    {comments.map((comment) => (
+      <Comment key={comment.id} author={comment.author} content={comment.content} created_at={comment.created_at} />
+    ))}
+  </div>
+);
 
-        {comments.map(comment => <Comment key={comment.id}
-                                          author={comment.author}
-                                          content={comment.content}
-                                          created_at={comment.created_at}/>)}
-    </div>
-
-)
-
-
-export default CommentsList
+export default CommentsList;
