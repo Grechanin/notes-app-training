@@ -1,12 +1,11 @@
-import styles from './NoteExpandContainer.module.scss';
-import { useParams } from 'react-router-dom';
-import { NoteExpandProps } from './NoteExpandContainer.types';
 import React from 'react';
-import CommentsList from './CommentsList/CommentsList';
 import { useSelector } from 'react-redux';
-import { IRootState } from '../NotesContainer/NotesContainer.types';
-import NoteContent from './NoteContent/NoteContent';
+import { useParams } from 'react-router-dom';
+
 import ComeToHome from '../Common/ComeToHome/ComeToHome';
+import CommentsList from './CommentsList/CommentsList';
+import NoteContent from './NoteContent/NoteContent';
+import styles from './NoteExpandContainer.module.scss';
 
 const NoteExpandContainer = () => {
   const noteId = useParams().id;

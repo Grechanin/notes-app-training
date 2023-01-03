@@ -11,5 +11,3 @@ export type Note = {
   content: string;
   comments: Comment[];
 };
-
-export type NoteReducer = {};

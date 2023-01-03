@@ -14,6 +14,3 @@ export const store = configureStore({
 
 type RootReducer = typeof rootReducers;
 export type AppStateType = ReturnType<RootReducer>;
-
-// @ts-ignore
-window.store = store;

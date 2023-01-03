@@ -1,10 +1,10 @@
 import './App.module.scss';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import styles from './App.module.scss';
-import CreateNote from './components/CreateNote/CreateNote';
+import CreateNoteContainer from './components/CreateNoteContainer/CreateNoteContainer';
 import Header from './components/Header/Header';
 import NoteExpandContainer from './components/NoteExpand/NoteExpandContainer';
 import NotesContainer from './components/NotesContainer/NotesContainer';
@@ -18,8 +18,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<NotesContainer />} />
         <Route path=":id" element={<NoteExpandContainer />} />
-        <Route path=":noteId/edit/" element={<CreateNote />} />
-        <Route path="/create/" element={<CreateNote />} />
+        <Route path=":noteId/edit/" element={<CreateNoteContainer />} />
+        <Route path="/create/" element={<CreateNoteContainer />} />
         <Route path="/settings/" element={<Settings />} />
       </Routes>
     </div>

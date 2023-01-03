@@ -1,7 +1,6 @@
 import React from 'react';
 
 import CreateNewNote from './CreateNewNote/CreateNewNote';
-import Note from './NoteList/Note/Note';
 import NoteList from './NoteList/NoteList';
 import styles from './NotesBox.module.scss';
 import { NotesListProps } from './NotesBox.types';
