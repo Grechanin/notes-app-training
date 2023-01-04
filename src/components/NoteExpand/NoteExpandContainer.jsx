@@ -8,15 +8,15 @@ import NoteContent from './NoteContent/NoteContent';
 import styles from './NoteExpandContainer.module.scss';
 
 const NoteExpandContainer = () => {
-  const noteId = useParams().id;
+  const { id } = useParams();
 
-  const note = useSelector((state) => state.notesPage.notes.find((note) => note.id === +noteId));
+  const note = useSelector((state) => state.notesPage.notes.find((note) => note.id === +id));
 
   return (
     <div className={styles.wrapper}>
       <ComeToHome />
 
-      <NoteContent name={note.name} content={note.content} noteId={noteId} />
+      <NoteContent name={note.name} content={note.content} id={id} />
 
       <CommentsList comments={note.comments} />
     </div>

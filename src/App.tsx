@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import styles from './App.module.scss';
-import CreateNoteContainer from './components/CreateNoteContainer/CreateNoteContainer';
+import CreateEditNoteContainer from './components/CreateEditNoteContainer/CreateEditNoteContainer';
 import Header from './components/Header/Header';
 import NoteExpandContainer from './components/NoteExpand/NoteExpandContainer';
 import NotesContainer from './components/NotesContainer/NotesContainer';
@@ -18,8 +18,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<NotesContainer />} />
         <Route path=":id" element={<NoteExpandContainer />} />
-        <Route path=":noteId/edit/" element={<CreateNoteContainer />} />
-        <Route path="/create/" element={<CreateNoteContainer />} />
+        <Route path=":noteId/edit/" element={<CreateEditNoteContainer isEdit />} />
+        <Route path="/create/" element={<CreateEditNoteContainer />} />
         <Route path="/settings/" element={<Settings />} />
       </Routes>
     </div>

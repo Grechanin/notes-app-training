@@ -1,7 +1,14 @@
-.toBack {
+.toHome {
   position: absolute;
   top: 0;
-  left: 20px;
+  left: 24px;
+
+  &_icons {
+
+    svg {
+      margin-left: 10px;
+    }
+  }
 
   span {
     padding: 4px;
