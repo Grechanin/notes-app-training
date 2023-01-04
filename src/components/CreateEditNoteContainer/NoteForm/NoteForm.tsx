@@ -7,19 +7,26 @@ import { useParams } from 'react-router-dom';
 import { AppStateType } from '../../../redux/redux-store';
 import styles from './NoteForm.module.scss';
 
-const NoteForm = ({ isEdit }) => {
-  const { noteId } = useParams();
-  const note = useSelector((state) => state.notesPage.notes.find((note) => note.id === +noteId));
+type NoteFormProps = {
+  isEdit: boolean;
+};
+type noteIdTypes = {
+  noteId: any;
+};
+const NoteForm: React.FC<NoteFormProps> = ({ isEdit }) => {
+  const { noteId } = useParams<noteIdTypes>();
+  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => note.id === +noteId));
   const navigate = useNavigate();
-  const initialFormValues = isEdit
-    ? {
-        name: `${note.name}`,
-        content: `${note.content}`,
-      }
-    : {
-        name: '',
-        content: '',
-      };
+  const initialFormValues =
+    isEdit && note !== undefined
+      ? {
+          name: `${note.name}`,
+          content: `${note.content}`,
+        }
+      : {
+          name: '',
+          content: '',
+        };
 
   const { values, handleChange, handleSubmit, setSubmitting, isSubmitting, dirty } = useFormik({
     initialValues: initialFormValues,
