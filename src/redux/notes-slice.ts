@@ -7,7 +7,7 @@ type Comment = {
   created_at: string;
 };
 
-type newNote = {
+type Note = {
   id: number;
   name: string;
   content: string;
@@ -37,13 +37,13 @@ const notesSlice = createSlice({
   },
   reducers: {
     addNote(state, action) {
-      const newNote: newNote = {
+      const newNote: Note = {
         id: state.notes.length + 1,
         name: action.payload.name,
         content: action.payload.content,
         comments: [],
       };
-      state.notes.push(newNote);
+      state.notes = [...state.notes, newNote];
     },
     editNote(state, action) {
       return {
@@ -63,8 +63,22 @@ const notesSlice = createSlice({
     deleteNote(state, action) {
       state.notes = state.notes.filter((item) => item.id !== action.payload);
     },
+    addComment(state, action) {
+      state.notes.map((note) => {
+        if (note.id == action.payload.id) {
+          const newComment: Comment = {
+            id: note.comments.length + 1,
+            content: action.payload.content,
+            author: action.payload.author,
+            created_at: 'data',
+          };
+          note.comments = [newComment, ...note.comments];
+        }
+        return note;
+      });
+    },
   },
 });
 
 export default notesSlice.reducer;
-export const { editNote, addNote, deleteNote } = notesSlice.actions;
+export const { addComment, editNote, addNote, deleteNote } = notesSlice.actions;
