@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { AppStateType } from '../../redux/redux-store';
 import ComeToHome from '../Common/ComeToHome/ComeToHome';
-import CommentsList from './CommentsList/CommentsList';
+import CommentsList from './CommentsBox/CommentsBox';
 import NoteContent from './NoteContent/NoteContent';
 import styles from './NoteExpandContainer.module.scss';
 
