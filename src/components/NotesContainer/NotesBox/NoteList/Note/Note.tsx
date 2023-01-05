@@ -21,9 +21,7 @@ const Note: React.FC<NoteProps> = ({ note }) => {
 
       <Link className={styles.link} to={'/' + note.id}>
         <div className={styles.note}>
-          <div>
-            <span>{note.name}</span>
-          </div>
+          <span>{note.name}</span>
         </div>
       </Link>
     </div>

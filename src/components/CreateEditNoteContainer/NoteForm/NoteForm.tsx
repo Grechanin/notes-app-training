@@ -1,25 +1,25 @@
+import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 
+import { addNote, editNote } from '../../../redux/notes-slice';
 import { AppStateType } from '../../../redux/redux-store';
 import styles from './NoteForm.module.scss';
 
-type NoteFormProps = {
-  isEdit: boolean;
-};
-type noteIdTypes = {
-  noteId: any;
-};
-const NoteForm: React.FC<NoteFormProps> = ({ isEdit }) => {
-  const { noteId } = useParams<noteIdTypes>();
-  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => note.id === +noteId));
+const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
+  const dispatch = useDispatch();
+  const { noteId } = useParams<{ noteId: string }>() || undefined;
+  const note = useSelector((state: AppStateType) =>
+    state.notesPage.notes.find((note) => noteId && note.id === +noteId)
+  );
   const navigate = useNavigate();
   const initialFormValues =
     isEdit && note !== undefined
       ? {
+          id: `${noteId}`,
           name: `${note.name}`,
           content: `${note.content}`,
         }
@@ -33,8 +33,7 @@ const NoteForm: React.FC<NoteFormProps> = ({ isEdit }) => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        console.log(values);
-        // isEditor ? editNote(noteId, values.name, values.content) : addNote(values.name, values.name);
+        isEdit ? dispatch(editNote(values)) : dispatch(addNote(values));
         setSubmitting(false);
         navigate('/');
       }, 400);
@@ -53,9 +52,11 @@ const NoteForm: React.FC<NoteFormProps> = ({ isEdit }) => {
           <textarea id="content" name="content" onChange={handleChange} value={values.content} />
         </div>
 
-        <button type="submit" disabled={isSubmitting || !dirty}>
-          <span>{isEdit ? 'confirm changes' : 'Create'}</span>
-        </button>
+        <div className={styles.createNoteBox_button}>
+          <Button variant="contained" type="submit" disabled={isSubmitting || !dirty}>
+            {isEdit ? 'confirm changes' : 'Create'}
+          </Button>
+        </div>
       </div>
     </form>
   );
