@@ -1,14 +1,14 @@
 import './App.module.scss';
 
+import styles from 'App.module.scss';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import styles from './App.module.scss';
-import CreateEditNoteContainer from './components/CreateEditNoteContainer/CreateEditNoteContainer';
-import Header from './components/Header/Header';
-import NoteExpandContainer from './components/NoteExpand/NoteExpandContainer';
-import NotesContainer from './components/NotesContainer/NotesContainer';
-import Settings from './components/Settings/Settings';
+import CreateEditNoteContainer from 'components/CreateEditNoteContainer/CreateEditNoteContainer';
+import Header from 'components/Header/Header';
+import NoteExpandContainer from 'components/NoteExpand/NoteExpandContainer';
+import NotesContainer from 'components/NotesContainer/NotesContainer';
+import Settings from 'components/Settings/Settings';
 
 const App = () => {
   return (

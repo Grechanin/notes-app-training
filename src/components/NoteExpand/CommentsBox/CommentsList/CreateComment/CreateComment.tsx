@@ -4,15 +4,15 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { addComment } from 'redux/notes-slice';
 
-import { addComment } from '../../../../../redux/notes-slice';
 import styles from './CreateComment.module.scss';
 
 const CreateComment = () => {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>() || undefined;
   const initialFormValues = {
-    id: `${id}`,
+    commentId: id,
     content: '',
     author: '',
   };

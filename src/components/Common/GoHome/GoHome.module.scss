@@ -1,19 +1,19 @@
-.toHome {
+.goHomeWrapper {
   position: absolute;
   top: 0;
   left: 24px;
-
-  &_icons {
-
-    svg {
-      margin-left: 10px;
-    }
-  }
 
   span {
     padding: 4px;
     color: #094b4d;
     font-weight: 500;
     font-size: 17px;
+  }
+}
+
+.icons {
+
+  svg {
+    margin-left: 10px;
   }
 }

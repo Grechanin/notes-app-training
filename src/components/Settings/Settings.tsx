@@ -1,12 +1,13 @@
 import React from 'react';
 
-import ComeToHome from '../Common/ComeToHome/ComeToHome';
+import GoToHome from 'components/Common/GoHome/GoHome';
+
 import styles from './Settings.module.scss';
 
 const Settings = () => {
   return (
     <div className={styles.settingsContainer}>
-      <ComeToHome />
+      <GoToHome />
 
       <div className={styles.setting}>
         <span>Settings</span>

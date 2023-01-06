@@ -1,18 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-type Comment = {
-  id: number;
-  author: string;
-  content: string;
-  created_at: string;
-};
-
-type Note = {
-  id: number;
-  name: string;
-  content: string;
-  comments: Comment[];
-};
+import { Comment, Note } from 'redux/notes-slice.types';
 
 const notesSlice = createSlice({
   name: 'notesPage',
@@ -46,26 +33,24 @@ const notesSlice = createSlice({
       state.notes = [...state.notes, newNote];
     },
     editNote(state, action) {
-      return {
-        notes: state.notes.map((note) => {
-          if (note.id == action.payload.id) {
-            return {
-              name: action.payload.name,
-              content: action.payload.content,
-              id: note.id,
-              comments: note.comments,
-            };
-          }
-          return note;
-        }),
-      };
+      state.notes = state.notes.map((note) => {
+        if (note.id == action.payload.id) {
+          return {
+            name: action.payload.name,
+            content: action.payload.content,
+            id: note.id,
+            comments: note.comments,
+          };
+        }
+        return note;
+      });
     },
     deleteNote(state, action) {
       state.notes = state.notes.filter((item) => item.id !== action.payload);
     },
     addComment(state, action) {
-      state.notes.map((note) => {
-        if (note.id == action.payload.id) {
+      state.notes.forEach((note) => {
+        if (note.id == action.payload.commentId) {
           const newComment: Comment = {
             id: note.comments.length + 1,
             content: action.payload.content,

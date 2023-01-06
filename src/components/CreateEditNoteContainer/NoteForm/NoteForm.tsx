@@ -4,9 +4,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
+import { addNote, editNote } from 'redux/notes-slice';
+import { AppStateType } from 'redux/redux-store';
 
-import { addNote, editNote } from '../../../redux/notes-slice';
-import { AppStateType } from '../../../redux/redux-store';
 import styles from './NoteForm.module.scss';
 
 const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
