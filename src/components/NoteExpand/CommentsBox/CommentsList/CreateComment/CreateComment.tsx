@@ -5,6 +5,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addComment } from 'redux/notes-slice';
+import * as Yup from 'yup';
 
 import styles from './CreateComment.module.scss';
 
@@ -14,13 +15,16 @@ const CreateComment = () => {
   const initialFormValues = {
     commentId: id,
     content: '',
-    author: '',
+    name: '',
+    surname: '',
   };
+
   const { handleChange, handleSubmit, setSubmitting, isSubmitting, dirty } = useFormik({
     initialValues: initialFormValues,
 
     onSubmit: (values) => {
       setTimeout(() => {
+        console.log(values);
         dispatch(addComment(values));
         setSubmitting(false);
       }, 400);
@@ -35,10 +39,18 @@ const CreateComment = () => {
           </div>
 
           <div className={styles.author}>
-            <label className={styles.author_label} htmlFor="author">
-              Author
-            </label>
-            <input id="author" name="author" onChange={handleChange} />
+            <div className={styles.name}>
+              <label className={styles.author_label} htmlFor="name">
+                Name
+              </label>
+              <input id="name" name="name" onChange={handleChange} />
+            </div>
+            <div className={styles.surname}>
+              <label className={styles.author_label} htmlFor="surname">
+                Surname
+              </label>
+              <input id="surname" name="surname" onChange={handleChange} />
+            </div>
           </div>
         </div>
         <div className={styles.send}>
