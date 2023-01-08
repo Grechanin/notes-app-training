@@ -19,14 +19,14 @@ const CreateComment = () => {
     surname: '',
   };
 
-  const { handleChange, handleSubmit, setSubmitting, isSubmitting, dirty } = useFormik({
+  const { handleChange, handleSubmit, setSubmitting, isSubmitting, dirty, resetForm, values } = useFormik({
     initialValues: initialFormValues,
 
     onSubmit: (values) => {
       setTimeout(() => {
-        console.log(values);
         dispatch(addComment(values));
         setSubmitting(false);
+        resetForm();
       }, 400);
     },
   });
@@ -35,7 +35,7 @@ const CreateComment = () => {
       <div className={styles.createCommentBox}>
         <div className={styles.fields}>
           <div className={styles.content}>
-            <textarea id="content" name="content" onChange={handleChange} />
+            <textarea id="content" name="content" onChange={handleChange} value={values.content} />
           </div>
 
           <div className={styles.author}>
@@ -43,13 +43,13 @@ const CreateComment = () => {
               <label className={styles.author_label} htmlFor="name">
                 Name
               </label>
-              <input id="name" name="name" onChange={handleChange} />
+              <input id="name" name="name" onChange={handleChange} value={values.name} />
             </div>
             <div className={styles.surname}>
               <label className={styles.author_label} htmlFor="surname">
                 Surname
               </label>
-              <input id="surname" name="surname" onChange={handleChange} />
+              <input id="surname" name="surname" onChange={handleChange} value={values.surname} />
             </div>
           </div>
         </div>

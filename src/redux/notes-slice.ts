@@ -54,8 +54,13 @@ const notesSlice = createSlice({
           const newComment: Comment = {
             id: note.comments.length + 1,
             content: action.payload.content,
-            author: action.payload.author,
-            created_at: 'data',
+            author:
+              action.payload.name.charAt(0).toUpperCase() +
+              action.payload.name.slice(1) +
+              ' ' +
+              action.payload.surname.charAt(0).toUpperCase() +
+              action.payload.surname.slice(1),
+            created_at: new Date().toLocaleString(),
           };
           note.comments = [newComment, ...note.comments];
         }

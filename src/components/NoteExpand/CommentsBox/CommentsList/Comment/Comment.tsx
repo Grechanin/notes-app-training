@@ -6,7 +6,7 @@ import { CommentProps } from './Comment.types';
 const Comment: React.FC<CommentProps> = ({ author, content, created_at }) => {
   return (
     <div className={styles.commentBox}>
-      <div>
+      <div className={styles.commentBox_author}>
         <span>{author}</span>
       </div>
 
@@ -14,7 +14,7 @@ const Comment: React.FC<CommentProps> = ({ author, content, created_at }) => {
         <span>{content}</span>
       </div>
 
-      <div>
+      <div className={styles.commentBox_date}>
         <span>{created_at}</span>
       </div>
     </div>

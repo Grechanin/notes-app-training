@@ -9,6 +9,17 @@
   padding: 8px;
   border: 1px solid wheat;
 
+  &_author {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  &_date {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+  }
+
   span {
     color: whitesmoke;
   }
