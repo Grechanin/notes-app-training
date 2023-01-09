@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Comment.module.scss';
 import { CommentProps } from './Comment.types';
 
-const Comment: React.FC<CommentProps> = ({ author, content, created_at }) => {
+const Comment: React.FC<CommentProps> = ({ comment: { author, content, created_at } }) => {
   return (
     <div className={styles.commentBox}>
       <div className={styles.commentBox_author}>

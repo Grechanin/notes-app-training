@@ -5,7 +5,7 @@ import { AppStateType } from 'redux/redux-store';
 
 import GoToHome from 'components/Common/GoHome/GoHome';
 
-import CommentsList from './CommentsBox/CommentsBox';
+import CommentsBox from './CommentsBox/CommentsBox';
 import NoteContent from './NoteContent/NoteContent';
 import styles from './NoteExpandContainer.module.scss';
 
@@ -19,7 +19,7 @@ const NoteExpandContainer = () => {
       {note && id && (
         <>
           <NoteContent name={note.name} content={note.content} id={id} />
-          <CommentsList comments={note.comments} />
+          <CommentsBox comments={note.comments} />
         </>
       )}
     </div>

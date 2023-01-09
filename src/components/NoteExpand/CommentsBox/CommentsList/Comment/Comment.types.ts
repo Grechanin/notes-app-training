@@ -1,5 +1,5 @@
+import { Comment } from 'redux/notes-slice.types';
+
 export type CommentProps = {
-  author: string;
-  content: string;
-  created_at: string;
+  comment: Comment;
 };

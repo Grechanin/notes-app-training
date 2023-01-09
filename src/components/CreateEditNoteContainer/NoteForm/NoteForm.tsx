@@ -42,17 +42,17 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={styles.createNoteBox}>
-        <div className={styles.createNoteBox_name}>
+      <div className={styles.createNoteWrapper}>
+        <div className={styles.createNoteWrapper_name}>
           <label htmlFor="name">Name </label>
           <input id="name" name="name" type="text" onChange={handleChange} value={values.name} />
         </div>
 
-        <div className={styles.createNoteBox_content}>
+        <div className={styles.createNoteWrapper_content}>
           <textarea id="content" name="content" onChange={handleChange} value={values.content} />
         </div>
 
-        <div className={styles.createNoteBox_button}>
+        <div className={styles.createNoteWrapper_button}>
           <Button variant="contained" type="submit" disabled={isSubmitting || !dirty}>
             {isEdit ? 'confirm changes' : 'Create'}
           </Button>

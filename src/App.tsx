@@ -1,4 +1,4 @@
-import './App.module.scss';
+import 'App.module.scss';
 
 import styles from 'App.module.scss';
 import React from 'react';

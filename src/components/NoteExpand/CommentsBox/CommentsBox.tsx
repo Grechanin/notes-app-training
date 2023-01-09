@@ -6,7 +6,7 @@ import { CommentsListProps } from './CommentsList/CommentsList.types';
 import CreateComment from './CommentsList/CreateComment/CreateComment';
 
 const CommentsBox: React.FC<CommentsListProps> = ({ comments }) => (
-  <div className={styles.commentsList}>
+  <div className={styles.commentsBox}>
     <h2>Comments</h2>
     <CreateComment />
     <CommentsList comments={comments} />
