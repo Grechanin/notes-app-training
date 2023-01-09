@@ -5,7 +5,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addComment } from 'redux/notes-slice';
-import * as Yup from 'yup';
 
 import styles from './CreateComment.module.scss';
 
@@ -35,7 +34,13 @@ const CreateComment = () => {
       <div className={styles.createCommentBox}>
         <div className={styles.fields}>
           <div className={styles.content}>
-            <textarea id="content" name="content" onChange={handleChange} value={values.content} />
+            <textarea
+              id="content"
+              name="content"
+              onChange={handleChange}
+              value={values.content}
+              placeholder="Add your comment"
+            />
           </div>
 
           <div className={styles.author}>

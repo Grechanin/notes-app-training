@@ -1,19 +1,16 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'redux-firestore';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDBN4oH_lwQJAz1KxEeF_bCcrzJ6hjG4HI',
-  authDomain: 'sport-country-app.firebaseapp.com',
-  databaseURL: 'https://sport-country-app-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'sport-country-app',
-  storageBucket: 'sport-country-app.appspot.com',
-  messagingSenderId: '712794285781',
-  appId: '1:712794285781:web:08f18e13be159de578e45c',
+  apiKey: 'AIzaSyCFezZmNxpDbidtGvuQHyQbsI_enGY-_V0',
+  authDomain: 'notes-47.firebaseapp.com',
+  projectId: 'notes-47',
+  storageBucket: 'notes-47.appspot.com',
+  messagingSenderId: '234885507567',
+  appId: '1:234885507567:web:6494567556779639d96e1a',
+  measurementId: 'G-P86V3VNGEZ',
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+// const analytics = getAnalytics(app);
 export const db = getFirestore(app);
