@@ -3,15 +3,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import GoToHome from 'components/Common/GoHome/GoHome';
 
 import styles from './Settings.module.scss';
 
 const Settings = () => {
-  const [value, setValue] = React.useState('LocalStorage');
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [value, setValue] = useState('LocalStorage');
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
   return (
