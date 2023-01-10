@@ -1,4 +1,4 @@
-import GoHome from 'components/Common/GoHome/GoHome';
+import GoBack from 'components/Common/GoBack/GoBack';
 import NoteForms from 'components/CreateEditNoteContainer/NoteForm/NoteForm';
 
 import styles from './CreateEditNoteContainer.module.scss';
@@ -6,7 +6,7 @@ import styles from './CreateEditNoteContainer.module.scss';
 const CreateEditNoteContainer = ({ isEdit = false }) => {
   return (
     <div className={styles.createNoteEditContainer}>
-      <GoHome />
+      <GoBack />
 
       <NoteForms isEdit={isEdit} />
     </div>

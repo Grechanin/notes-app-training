@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppStateType } from 'redux/redux-store';
 
-import GoToHome from 'components/Common/GoHome/GoHome';
+import GoToHome from 'components/Common/GoBack/GoBack';
 
 import CommentsBox from './CommentsBox/CommentsBox';
 import NoteContent from './NoteContent/NoteContent';
