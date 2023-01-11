@@ -5,7 +5,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import React, { ChangeEvent, useState } from 'react';
 
-import GoToHome from 'components/Common/GoBack/GoBack';
+import GoBack from 'components/Common/GoBack/GoBack';
 
 import styles from './Settings.module.scss';
 
@@ -16,7 +16,7 @@ const Settings = () => {
   };
   return (
     <div className={styles.settingsContainer}>
-      <GoToHome />
+      <GoBack />
 
       <div className={styles.setting}>
         <FormControl>

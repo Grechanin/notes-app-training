@@ -1,4 +1,4 @@
-.goHomeWrapper {
+.goBackWrapper {
   position: absolute;
   top: 0;
   left: 24px;
@@ -9,14 +9,10 @@
     font-weight: 500;
     font-size: 17px;
   }
-}
 
-.icons {
   button {
     background: none;
   }
-
-  svg {
-    margin-left: 10px;
-  }
 }
+
+
