@@ -13,9 +13,7 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams<{ noteId: string }>() || undefined;
   // TODO set type for redux state
-  const note = useSelector((state: AppStateType) =>
-    state.notesPage.notes.find((note) => noteId && note.id === +noteId)
-  );
+  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => noteId && note.id === noteId));
   const navigate = useNavigate();
   const initialFormValues =
     isEdit && note !== undefined

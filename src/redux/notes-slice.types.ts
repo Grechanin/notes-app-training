@@ -1,12 +1,12 @@
 export type Comment = {
-  id: number;
+  id: string;
   author: { name: string; surname: string };
   content: string;
   created_at: string;
 };
 
 export type Note = {
-  id: number;
+  id: string;
   name: string;
   content: string;
   comments: Comment[];

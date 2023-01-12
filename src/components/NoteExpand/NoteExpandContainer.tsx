@@ -11,8 +11,7 @@ import styles from './NoteExpandContainer.module.scss';
 
 const NoteExpandContainer = () => {
   const { id } = useParams<{ id: string }>() || undefined;
-
-  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => id && note.id === +id));
+  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => id && note.id === id));
   return (
     <div className={styles.wrapper}>
       <GoBack />

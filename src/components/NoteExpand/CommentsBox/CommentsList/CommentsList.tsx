@@ -1,15 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AppStateType } from 'redux/redux-store';
+import { getNoteById } from 'redux/selectors';
 
 import Comment from './Comment/Comment';
 import { CommentsListProps } from './CommentsList.types';
 
 const CommentsList: React.FC<CommentsListProps> = () => {
-  const { id } = useParams<{ id: string }>() || undefined;
-
-  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => id && note.id === +id));
+  const { id } = useParams() || undefined;
+  const note = useSelector(getNoteById(id));
   const comments = note ? note.comments : undefined;
   return (
     <>

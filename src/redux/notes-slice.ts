@@ -1,26 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Comment, Note } from 'redux/notes-slice.types';
+import { v4 } from 'uuid';
 
 const notesSlice = createSlice({
   name: 'notesPage',
   initialState: {
     notes: [
       {
-        id: 1,
+        id: '1',
         name: 'shopping list',
         content: 'need buy milk',
         comments: [
-          { id: 1, author: { name: 'John', surname: 'White' }, content: 'and buy meet', created_at: '21.12.2022' },
+          { id: '2', author: { name: 'John', surname: 'White' }, content: 'and buy meet', created_at: '21.12.2022' },
         ],
       },
       {
-        id: 2,
+        id: '2',
         name: 'tasks for the day',
         content: 'meet with Katy in 21:00',
         comments: [
-          { id: 1, author: { name: 'Katy', surname: 'Ling' }, content: 'come in 20:30', created_at: '24.12.2022' },
+          { id: '1', author: { name: 'Katy', surname: 'Ling' }, content: 'come in 20:30', created_at: '24.12.2022' },
           {
-            id: 2,
+            id: '2',
             author: { name: 'Katy', surname: 'Ling' },
             content: 'sorry, come in 20:00',
             created_at: '24.12.2022',
@@ -32,7 +33,7 @@ const notesSlice = createSlice({
   reducers: {
     addNote(state, action) {
       const newNote: Note = {
-        id: state.notes.length + 1,
+        id: v4(),
         name: action.payload.name,
         content: action.payload.content,
         comments: [],
@@ -59,7 +60,7 @@ const notesSlice = createSlice({
       state.notes.forEach((note) => {
         if (note.id == action.payload.commentId) {
           const newComment: Comment = {
-            id: note.comments.length + 1,
+            id: v4(),
             content: action.payload.content,
             author: {
               name: action.payload.name.charAt(0).toUpperCase() + action.payload.name.slice(1),
