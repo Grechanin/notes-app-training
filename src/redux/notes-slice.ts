@@ -1,35 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Comment, Note } from 'redux/notes-slice.types';
+import { Comment, Note, NotesState } from 'redux/notes-slice.types';
 import { v4 } from 'uuid';
+
+const initialState: NotesState = {
+  notes: [],
+};
 
 const notesSlice = createSlice({
   name: 'notesPage',
-  initialState: {
-    notes: [
-      {
-        id: '1',
-        name: 'shopping list',
-        content: 'need buy milk',
-        comments: [
-          { id: '2', author: { name: 'John', surname: 'White' }, content: 'and buy meet', created_at: '21.12.2022' },
-        ],
-      },
-      {
-        id: '2',
-        name: 'tasks for the day',
-        content: 'meet with Katy in 21:00',
-        comments: [
-          { id: '1', author: { name: 'Katy', surname: 'Ling' }, content: 'come in 20:30', created_at: '24.12.2022' },
-          {
-            id: '2',
-            author: { name: 'Katy', surname: 'Ling' },
-            content: 'sorry, come in 20:00',
-            created_at: '24.12.2022',
-          },
-        ],
-      },
-    ],
-  },
+  initialState,
   reducers: {
     addNote(state, action) {
       const newNote: Note = {

@@ -11,3 +11,7 @@ export type Note = {
   content: string;
   comments: Comment[];
 };
+
+export interface NotesState {
+  notes: Note[];
+}
