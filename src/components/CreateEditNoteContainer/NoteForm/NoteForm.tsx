@@ -1,19 +1,20 @@
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { addNote, editNote } from 'redux/notes-slice';
-import { AppStateType } from 'redux/redux-store';
+import { selectNoteById } from 'redux/selectors';
+
+import { useAppSelector } from 'components/hooks/redux';
 
 import styles from './NoteForm.module.scss';
 
 const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const dispatch = useDispatch();
   const { noteId } = useParams<{ noteId: string }>() || undefined;
-  // TODO set type for redux state
-  const note = useSelector((state: AppStateType) => state.notesPage.notes.find((note) => noteId && note.id === noteId));
+  const note = useAppSelector((state) => selectNoteById(state, noteId));
   const navigate = useNavigate();
   const initialFormValues =
     isEdit && note !== undefined

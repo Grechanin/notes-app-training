@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getNoteById } from 'redux/selectors';
+import { selectNoteById } from 'redux/selectors';
 
 import GoBack from 'components/Common/GoBack/GoBack';
+import { useAppSelector } from 'components/hooks/redux';
 
 import CommentsBox from './CommentsBox/CommentsBox';
 import NoteContent from './NoteContent/NoteContent';
@@ -11,7 +11,7 @@ import styles from './NoteExpandContainer.module.scss';
 
 const NoteExpandContainer = () => {
   const { id } = useParams() || undefined;
-  const note = useSelector(getNoteById(id));
+  const note = useAppSelector((state) => selectNoteById(state, id));
   return (
     <div className={styles.wrapper}>
       <GoBack />
