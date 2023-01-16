@@ -1,6 +1,11 @@
+type Author = {
+  name: string;
+  surname: string;
+};
+
 export type Comment = {
   id: string;
-  author: { name: string; surname: string };
+  author: Author;
   content: string;
   created_at: string;
 };
