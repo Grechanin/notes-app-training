@@ -10,7 +10,7 @@ const GoBack = () => {
   return (
     <div className={styles.goBackWrapper}>
       <button onClick={() => navigate(-1)}>
-        <IoReturnUpBackSharp size={'24px'} color={'rgba(220, 228, 236, 0.9)'} />
+        <IoReturnUpBackSharp />
       </button>
     </div>
   );
