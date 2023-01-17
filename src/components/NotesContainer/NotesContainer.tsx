@@ -1,16 +1,17 @@
 import React from 'react';
-import { selectAllNotes } from 'redux/selectors';
 
-import { useAppSelector } from 'components/hooks/redux';
+import CreateNewNote from './CreateNewNote/CreateNewNote';
+import NoteList from './NoteList/NoteList';
+import styles from './NotesBox.module.scss';
 
-import NotesBox from './NotesBox/NotesBox';
-import { NotesContainerProps } from './NotesContainer.types';
-
-const NotesContainer: React.FC<NotesContainerProps> = () => {
-  const notes = useAppSelector(selectAllNotes);
+const NotesContainer = () => {
   return (
-    <div>
-      <NotesBox notes={notes} />
+    <div className={styles.notesList}>
+      <NoteList />
+
+      <div className={styles.link}>
+        <CreateNewNote />
+      </div>
     </div>
   );
 };
