@@ -1,15 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
-import NotesBox from './NotesBox/NotesBox';
-import { IRootState, NotesContainerProps } from './NotesContainer.types';
+import CreateNewNote from './CreateNewNote/CreateNewNote';
+import NoteList from './NoteList/NoteList';
+import styles from './NotesBox.module.scss';
 
-const NotesContainer: React.FC<NotesContainerProps> = () => {
-  const notes = useSelector((state: IRootState) => state.notesPage.notes);
-
+const NotesContainer = () => {
   return (
-    <div>
-      <NotesBox notes={notes} />
+    <div className={styles.notesList}>
+      <NoteList />
+
+      <div className={styles.link}>
+        <CreateNewNote />
+      </div>
     </div>
   );
 };

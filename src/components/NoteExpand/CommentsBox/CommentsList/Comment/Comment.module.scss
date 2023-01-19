@@ -1,0 +1,26 @@
+.commentBox {
+  margin: 15px auto 20px;
+  background-color: rgba(48, 51, 63, 0.49);
+  min-height: 80px;
+  max-height: 500px;
+  min-width: 300px;
+  max-width: 60%;
+  border-radius: 16px;
+  padding: 8px;
+  border: 1px solid wheat;
+
+  &_author {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  &_date {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+  }
+
+  span {
+    color: whitesmoke;
+  }
+}
