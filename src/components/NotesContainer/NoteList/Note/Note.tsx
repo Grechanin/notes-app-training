@@ -3,10 +3,10 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteNote } from 'redux/notes-slice';
 
 import styles from 'components/NotesContainer/NoteList/Note/Note.module.scss';
 import { NoteProps } from 'components/NotesContainer/NoteList/Note/Note.types';
+import { deleteNote } from 'store/notes-slice';
 
 const Note: React.FC<NoteProps> = ({ note }) => {
   const dispatch = useDispatch();

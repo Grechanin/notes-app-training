@@ -1,8 +1,8 @@
 import React from 'react';
-import { selectAllNotes } from 'redux/selectors';
 
 import { useAppSelector } from 'components/hooks/redux';
 import Note from 'components/NotesContainer/NoteList/Note/Note';
+import { selectAllNotes } from 'store/selectors';
 
 const NoteList = () => {
   const notes = useAppSelector(selectAllNotes);

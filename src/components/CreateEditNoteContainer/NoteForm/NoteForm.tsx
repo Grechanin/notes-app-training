@@ -4,10 +4,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
-import { addNote, editNote } from 'redux/notes-slice';
-import { selectNoteById } from 'redux/selectors';
 
 import { useAppSelector } from 'components/hooks/redux';
+import { addNote, editNote } from 'store/notes-slice';
+import { selectNoteById } from 'store/selectors';
 
 import styles from './NoteForm.module.scss';
 

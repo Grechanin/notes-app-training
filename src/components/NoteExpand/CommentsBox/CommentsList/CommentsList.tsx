@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { selectNoteById } from 'redux/selectors';
 
 import { useAppSelector } from 'components/hooks/redux';
+import { selectNoteById } from 'store/selectors';
 
 import Comment from './Comment/Comment';
 import { CommentsListProps } from './CommentsList.types';
