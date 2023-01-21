@@ -18,7 +18,7 @@ const NoteExpandContainer = () => {
       {note && id && (
         <>
           <NoteContent name={note.name} content={note.content} id={id} />
-          <CommentsBox comments={note.comments} />
+          <CommentsBox />
         </>
       )}
     </div>

@@ -5,36 +5,18 @@ import { Comment, Note, NotesState } from 'store/notes-slice.types';
 
 const initialState: NotesState = {
   notes: [],
+  isLoading: false,
 };
 
 const notesSlice = createSlice({
   name: 'notesPage',
   initialState,
   reducers: {
-    addNote(state, action) {
-      const newNote: Note = {
-        id: v4(),
-        name: action.payload.name,
-        content: action.payload.content,
-        comments: [],
-      };
-      state.notes = [...state.notes, newNote];
+    notesFetching(state) {
+      state.isLoading = true;
     },
-    editNote(state, action) {
-      state.notes = state.notes.map((note) => {
-        if (note.id == action.payload.id) {
-          return {
-            name: action.payload.name,
-            content: action.payload.content,
-            id: note.id,
-            comments: note.comments,
-          };
-        }
-        return note;
-      });
-    },
-    deleteNote(state, action) {
-      state.notes = state.notes.filter((item) => item.id !== action.payload);
+    notesFetchingSuccess(state, action) {
+      action.payload ? (state.notes = action.payload) : (state.isLoading = true);
     },
     addComment(state, action) {
       state.notes.forEach((note) => {
@@ -57,4 +39,4 @@ const notesSlice = createSlice({
 });
 
 export default notesSlice.reducer;
-export const { addComment, editNote, addNote, deleteNote } = notesSlice.actions;
+export const { notesFetching, notesFetchingSuccess, addComment } = notesSlice.actions;

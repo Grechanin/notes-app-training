@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'components/hooks/redux';
-import { addNote, editNote } from 'store/notes-slice';
+import { editNote, fetchNotes, setNewNote } from 'store/actions';
 import { selectNoteById } from 'store/selectors';
 
 import styles from './NoteForm.module.scss';
 
 const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const { noteId } = useParams<{ noteId: string }>() || undefined;
   const note = useAppSelector((state) => selectNoteById(state, noteId));
   const navigate = useNavigate();
@@ -33,8 +33,9 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        isEdit ? dispatch(editNote(values)) : dispatch(addNote(values));
+        isEdit ? editNote(values) : setNewNote(values);
         setSubmitting(false);
+        dispatch(fetchNotes());
         navigate('/');
       }, 400);
     },

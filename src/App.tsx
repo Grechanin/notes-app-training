@@ -2,6 +2,7 @@ import 'App.module.scss';
 
 import styles from 'App.module.scss';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import CreateEditNoteContainer from 'components/CreateEditNoteContainer/CreateEditNoteContainer';
@@ -9,8 +10,11 @@ import Header from 'components/Header/Header';
 import NoteExpandContainer from 'components/NoteExpand/NoteExpandContainer';
 import NotesContainer from 'components/NotesContainer/NotesContainer';
 import Settings from 'components/Settings/Settings';
+import { fetchNotes } from 'store/actions';
 
 const App = () => {
+  const dispatch = useDispatch<any>();
+  dispatch(fetchNotes());
   return (
     <div className={styles.wrapper}>
       <Header />

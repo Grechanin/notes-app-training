@@ -19,4 +19,5 @@ export type Note = {
 
 export interface NotesState {
   notes: Note[];
+  isLoading: boolean;
 }
