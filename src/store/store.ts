@@ -3,13 +3,17 @@ import { firestoreReducer } from 'redux-firestore';
 
 import notesSlice from './notes-slice';
 
+export const setupStore = () => {
+  return configureStore({
+    reducer: rootReducers,
+  });
+};
+
 const rootReducers = combineReducers({
   notesPage: notesSlice,
   firestore: firestoreReducer,
 });
 
-export const store = configureStore({
-  reducer: rootReducers,
-});
-
-export type AppStateType = ReturnType<typeof store.getState>;
+export type AppStateType = ReturnType<typeof rootReducers>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

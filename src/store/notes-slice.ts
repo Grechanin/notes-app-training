@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 } from 'uuid';
 
-import { Comment, Note, NotesState } from 'store/notes-slice.types';
+import { Comment, NotesState } from 'store/notes-slice.types';
 
 const initialState: NotesState = {
   notes: [],

@@ -1,15 +1,15 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { useAppDispatch } from 'components/hooks/redux';
 import styles from 'components/NotesContainer/NoteList/Note/Note.module.scss';
 import { NoteProps } from 'components/NotesContainer/NoteList/Note/Note.types';
 import { fetchNotes, removeNote } from 'store/actions';
 
 const Note: React.FC<NoteProps> = ({ note }) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
   const onSubmit = (values: string) => {
     removeNote(values);
     dispatch(fetchNotes());
