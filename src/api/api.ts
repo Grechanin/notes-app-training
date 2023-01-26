@@ -1,34 +1,34 @@
-import { v4 } from 'uuid';
-
-export let notes = JSON.parse(localStorage.getItem('notes') || '');
-
-export const setNewNote = (values: any) => {
-  const note = {
-    name: values.name,
-    content: values.content,
-    comments: [],
-    id: v4(),
-  };
-  notes
-    ? localStorage.setItem('notes', JSON.stringify([...notes, { ...note }]))
-    : localStorage.setItem('notes', JSON.stringify([note]));
-  notes = JSON.parse(localStorage.getItem('notes') || '');
+export const getNotes = () => {
+  return JSON.parse(localStorage.getItem('notes') || '');
 };
 
-export const removeNote = (values: any) => {
-  localStorage.setItem('notes', JSON.stringify(notes.filter((item: any) => item.id !== values)));
-  notes = JSON.parse(localStorage.getItem('notes') || '');
+export const addNoteToLS = (newNote: any) => {
+  const notes = getNotes();
+  try {
+    notes
+      ? localStorage.setItem('notes', JSON.stringify([...notes, { ...newNote }]))
+      : localStorage.setItem('notes', JSON.stringify([newNote]));
+    return newNote;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const editNote = (values: any) => {
-  let UpdatingNote = notes.find((items: any) => items.id === values.id);
-  UpdatingNote = {
-    name: values.name,
-    content: values.content,
-    comments: UpdatingNote.comments,
-    id: UpdatingNote.id,
-  };
-  notes = notes.filter((item: any) => item.id !== values.id);
-  localStorage.setItem('notes', JSON.stringify([...notes, { ...UpdatingNote }]));
-  notes = JSON.parse(localStorage.getItem('notes') || '');
+export const removeNoteFromLS = (values: any) => {
+  const notes = getNotes();
+  try {
+    localStorage.setItem('notes', JSON.stringify(notes.filter((item: any) => item.id !== values)));
+    return values;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const editNoteInLS = (notes: any, UpdatingNote: any) => {
+  try {
+    localStorage.setItem('notes', JSON.stringify([...notes, { ...UpdatingNote }]));
+    return UpdatingNote;
+  } catch (e) {
+    console.log(e);
+  }
 };

@@ -15,11 +15,21 @@ const notesSlice = createSlice({
     setIsNotesFetching(state) {
       state.isLoading = true;
     },
-    addNote(state, action) {
+    setNotes(state, action) {
       action.payload ? (state.notes = action.payload) : (state.isLoading = false);
+    },
+    addNote(state, action) {
+      state.notes = [...state.notes, action.payload];
+    },
+    deleteNoteInState(state, action) {
+      state.notes = state.notes.filter((item) => item.id !== action.payload);
     },
     resetIsNotesFetching(state) {
       state.isLoading = false;
+    },
+    editNoteInState(state, action) {
+      state.notes = state.notes.filter((item) => item.id !== action.payload.id);
+      state.notes = [...state.notes, action.payload];
     },
     addComment(state, action) {
       state.notes.forEach((note) => {
@@ -42,4 +52,12 @@ const notesSlice = createSlice({
 });
 
 export default notesSlice.reducer;
-export const { setIsNotesFetching, addNote, resetIsNotesFetching, addComment } = notesSlice.actions;
+export const {
+  setIsNotesFetching,
+  editNoteInState,
+  deleteNoteInState,
+  addNote,
+  setNotes,
+  resetIsNotesFetching,
+  addComment,
+} = notesSlice.actions;
