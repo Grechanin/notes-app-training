@@ -4,8 +4,9 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 
+import { editNote, setNewNote } from 'api/api';
 import { useAppDispatch, useAppSelector } from 'components/hooks/redux';
-import { editNote, fetchNotes, setNewNote } from 'store/actions';
+import { fetchNotes } from 'store/actions';
 import { selectNoteById } from 'store/selectors';
 
 import styles from './NoteForm.module.scss';

@@ -8,3 +8,4 @@ export const selectNoteById = createSelector(
 );
 
 export const selectAllNotes = (state: AppStateType) => state.notesPage.notes;
+export const getIsFetching = (state: AppStateType) => state.notesPage.isLoading;

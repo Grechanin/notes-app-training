@@ -3,14 +3,15 @@ import { IconButton } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { removeNote } from 'api/api';
 import { useAppDispatch } from 'components/hooks/redux';
 import styles from 'components/NotesContainer/NoteList/Note/Note.module.scss';
 import { NoteProps } from 'components/NotesContainer/NoteList/Note/Note.types';
-import { fetchNotes, removeNote } from 'store/actions';
+import { fetchNotes } from 'store/actions';
 
 const Note: React.FC<NoteProps> = ({ note }) => {
   const dispatch = useAppDispatch();
-  const onSubmit = (values: string) => {
+  const removeNoteHandler = (values: string) => {
     removeNote(values);
     dispatch(fetchNotes());
   };
@@ -18,7 +19,7 @@ const Note: React.FC<NoteProps> = ({ note }) => {
   return (
     <div className={styles.noteContainer}>
       <div className={styles.delete}>
-        <IconButton aria-label="delete" color="warning" onClick={() => onSubmit(note.id)}>
+        <IconButton aria-label="delete" color="warning" onClick={() => removeNoteHandler(note.id)}>
           <DeleteIcon />
         </IconButton>
       </div>

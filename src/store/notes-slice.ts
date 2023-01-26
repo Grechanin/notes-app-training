@@ -12,11 +12,14 @@ const notesSlice = createSlice({
   name: 'notesPage',
   initialState,
   reducers: {
-    notesFetching(state) {
+    setIsNotesFetching(state) {
       state.isLoading = true;
     },
-    notesFetchingSuccess(state, action) {
-      action.payload ? (state.notes = action.payload) : (state.isLoading = true);
+    addNote(state, action) {
+      action.payload ? (state.notes = action.payload) : (state.isLoading = false);
+    },
+    resetIsNotesFetching(state) {
+      state.isLoading = false;
     },
     addComment(state, action) {
       state.notes.forEach((note) => {
@@ -39,4 +42,4 @@ const notesSlice = createSlice({
 });
 
 export default notesSlice.reducer;
-export const { notesFetching, notesFetchingSuccess, addComment } = notesSlice.actions;
+export const { setIsNotesFetching, addNote, resetIsNotesFetching, addComment } = notesSlice.actions;
