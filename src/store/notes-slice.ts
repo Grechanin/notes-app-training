@@ -28,8 +28,17 @@ const notesSlice = createSlice({
       state.isLoading = false;
     },
     editNoteInState(state, action) {
-      state.notes = state.notes.filter((item) => item.id !== action.payload.id);
-      state.notes = [...state.notes, action.payload];
+      state.notes = state.notes.map((note) => {
+        if (note.id === action.payload.id) {
+          return {
+            name: action.payload.name,
+            content: action.payload.content,
+            id: note.id,
+            comments: note.comments,
+          };
+        }
+        return note;
+      });
     },
     addComment(state, action) {
       state.notes.forEach((note) => {
