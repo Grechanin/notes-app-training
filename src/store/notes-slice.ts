@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { v4 } from 'uuid';
 
-import { Comment, NotesState } from 'store/notes-slice.types';
+import { NotesState } from 'store/notes-slice.types';
 
 const initialState: NotesState = {
   notes: [],
@@ -41,18 +40,12 @@ const notesSlice = createSlice({
       });
     },
     addComment(state, action) {
-      state.notes.forEach((note) => {
-        if (note.id == action.payload.commentId) {
-          const newComment: Comment = {
-            id: v4(),
-            content: action.payload.content,
-            author: {
-              name: action.payload.name.charAt(0).toUpperCase() + action.payload.name.slice(1),
-              surname: action.payload.surname.charAt(0).toUpperCase() + action.payload.surname.slice(1),
-            },
-            created_at: new Date().toLocaleString(),
+      state.notes = state.notes.map((note) => {
+        if (note.id == action.payload.id) {
+          return {
+            ...note,
+            comments: action.payload.comments,
           };
-          note.comments = [newComment, ...note.comments];
         }
         return note;
       });

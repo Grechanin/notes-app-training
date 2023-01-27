@@ -32,3 +32,12 @@ export const editNoteInLS = (notes: any, UpdatingNote: any) => {
     console.log(e);
   }
 };
+
+export const addCommentToLS = (notes: any, noteCommented: any) => {
+  try {
+    localStorage.setItem('notes', JSON.stringify([...notes, { ...noteCommented }]));
+    return noteCommented;
+  } catch (e) {
+    console.log(e);
+  }
+};

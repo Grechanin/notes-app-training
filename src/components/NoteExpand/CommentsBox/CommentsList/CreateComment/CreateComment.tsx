@@ -2,18 +2,18 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { addComment } from 'store/notes-slice';
+import { useAppDispatch } from 'components/hooks/redux';
+import { setNewComment } from 'store/actions';
 
 import styles from './CreateComment.module.scss';
 
 const CreateComment = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>() || undefined;
   const initialFormValues = {
-    commentId: id,
+    noteId: id,
     content: '',
     name: '',
     surname: '',
@@ -24,7 +24,7 @@ const CreateComment = () => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        dispatch(addComment(values));
+        dispatch(setNewComment(values));
         setSubmitting(false);
         resetForm();
       }, 400);

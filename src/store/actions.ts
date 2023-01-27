@@ -1,7 +1,8 @@
 import { v4 } from 'uuid';
 
-import { addNoteToLS, editNoteInLS, getNotes, removeNoteFromLS } from 'api/api';
+import { addCommentToLS, addNoteToLS, editNoteInLS, getNotes, removeNoteFromLS } from 'api/api';
 import {
+  addComment,
   addNote,
   deleteNoteInState,
   editNoteInState,
@@ -47,5 +48,30 @@ export const fetchNotes = () => async (dispatch: AppDispatch) => {
   const notes = getNotes();
   dispatch(setIsNotesFetching());
   dispatch(setNotes(notes));
+  dispatch(resetIsNotesFetching());
+};
+
+export const setNewComment = (values: any) => async (dispatch: AppDispatch) => {
+  dispatch(setIsNotesFetching());
+  let notes = getNotes();
+  let noteCommented = notes.find((item: any) => item.id === values.noteId);
+  const newComment = {
+    id: v4(),
+    content: values.content,
+    author: {
+      name: values.name.charAt(0).toUpperCase() + values.name.slice(1),
+      surname: values.surname.charAt(0).toUpperCase() + values.surname.slice(1),
+    },
+    created_at: new Date().toLocaleString(),
+  };
+  noteCommented = {
+    name: noteCommented.name,
+    content: noteCommented.content,
+    id: noteCommented.id,
+    comments: [{ ...newComment }, ...noteCommented.comments],
+  };
+  notes = notes.filter((item: any) => item.id !== values.noteId);
+  const noteUpdated = addCommentToLS(notes, noteCommented);
+  dispatch(addComment(noteUpdated));
   dispatch(resetIsNotesFetching());
 };
