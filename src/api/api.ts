@@ -1,5 +1,9 @@
 export const getNotes = () => {
-  return JSON.parse(localStorage.getItem('notes') || '');
+  try {
+    return JSON.parse(localStorage.getItem('notes') || '');
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const addNoteToLS = (newNote: any) => {
