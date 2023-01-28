@@ -1,3 +1,5 @@
+import { Note } from 'store/notes-slice.types';
+
 export const getNotes = () => {
   try {
     return JSON.parse(localStorage.getItem('notes') || '');
@@ -6,7 +8,7 @@ export const getNotes = () => {
   }
 };
 
-export const addNoteToLS = (newNote: any) => {
+export const addNoteToLS = (newNote: Note) => {
   const notes = getNotes();
   try {
     notes
@@ -18,17 +20,18 @@ export const addNoteToLS = (newNote: any) => {
   }
 };
 
-export const removeNoteFromLS = (values: any) => {
+export const removeNoteFromLS = (values: string) => {
   const notes = getNotes();
   try {
-    localStorage.setItem('notes', JSON.stringify(notes.filter((item: any) => item.id !== values)));
+    localStorage.setItem('notes', JSON.stringify(notes.filter((item: Note) => item.id !== values)));
     return values;
   } catch (e) {
     console.log(e);
   }
 };
 
-export const editNoteInLS = (notes: any, UpdatingNote: any) => {
+export const editNoteInLS = (notes: any, UpdatingNote: Note) => {
+  console.log(notes);
   try {
     localStorage.setItem('notes', JSON.stringify([...notes, { ...UpdatingNote }]));
     return UpdatingNote;
@@ -37,7 +40,7 @@ export const editNoteInLS = (notes: any, UpdatingNote: any) => {
   }
 };
 
-export const addCommentToLS = (notes: any, noteCommented: any) => {
+export const addCommentToLS = (notes: any, noteCommented: Note) => {
   try {
     localStorage.setItem('notes', JSON.stringify([...notes, { ...noteCommented }]));
     return noteCommented;

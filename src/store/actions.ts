@@ -10,6 +10,7 @@ import {
   setIsNotesFetching,
   setNotes,
 } from 'store/notes-slice';
+import { Note } from 'store/notes-slice.types';
 import { AppDispatch } from 'store/store';
 
 export const setNewNote = (values: any) => async (dispatch: AppDispatch) => {
@@ -25,21 +26,21 @@ export const setNewNote = (values: any) => async (dispatch: AppDispatch) => {
   dispatch(resetIsNotesFetching());
 };
 
-export const removeNote = (values: any) => async (dispatch: AppDispatch) => {
+export const removeNote = (values: string) => async (dispatch: AppDispatch) => {
   const noteId = removeNoteFromLS(values);
   dispatch(deleteNoteInState(noteId));
 };
 
 export const editNote = (values: any) => async (dispatch: AppDispatch) => {
   let notes = getNotes();
-  let UpdatingNote = notes.find((items: any) => items.id === values.id);
+  let UpdatingNote = notes.find((items: Note) => items.id === values.id);
   UpdatingNote = {
     name: values.name,
     content: values.content,
     comments: UpdatingNote.comments,
     id: UpdatingNote.id,
   };
-  notes = notes.filter((item: any) => item.id !== values.id);
+  notes = notes.filter((item: Note) => item.id !== values.id);
   const noteEdited = editNoteInLS(notes, UpdatingNote);
   dispatch(editNoteInState(noteEdited));
 };
@@ -70,7 +71,7 @@ export const setNewComment = (values: any) => async (dispatch: AppDispatch) => {
     id: noteCommented.id,
     comments: [{ ...newComment }, ...noteCommented.comments],
   };
-  notes = notes.filter((item: any) => item.id !== values.noteId);
+  notes = notes.filter((item: Note) => item.id !== values.noteId);
   const noteUpdated = addCommentToLS(notes, noteCommented);
   dispatch(addComment(noteUpdated));
   dispatch(resetIsNotesFetching());

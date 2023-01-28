@@ -21,6 +21,7 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
           id: `${noteId}`,
           name: `${note.name}`,
           content: `${note.content}`,
+          comments: [],
         }
       : {
           name: '',
