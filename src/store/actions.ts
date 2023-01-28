@@ -55,7 +55,7 @@ export const fetchNotes = () => async (dispatch: AppDispatch) => {
 export const setNewComment = (values: any) => async (dispatch: AppDispatch) => {
   dispatch(setIsNotesFetching());
   let notes = getNotes();
-  let noteCommented = notes.find((item: any) => item.id === values.noteId);
+  let noteCommented = notes.find((item: Note) => item.id === values.noteId);
   const newComment = {
     id: v4(),
     content: values.content,
