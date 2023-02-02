@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { NotesState } from 'store/notes-slice.types';
+import { Note, NotesState } from 'store/notes-slice.types';
 
 const initialState: NotesState = {
   notes: [],
@@ -14,52 +14,20 @@ const notesSlice = createSlice({
     setIsNotesFetching(state) {
       state.isLoading = true;
     },
-    setNotes(state, action) {
-      action.payload ? (state.notes = action.payload) : (state.isLoading = false);
+    setNotes(state, { payload }: PayloadAction<Note[]>) {
+      payload ? (state.notes = payload) : (state.isLoading = false);
     },
-    addNote(state, action) {
-      state.notes = [...state.notes, action.payload];
+    addNote(state, { payload }: PayloadAction<Note>) {
+      state.notes = [...state.notes, payload];
     },
-    deleteNoteInState(state, action) {
-      state.notes = state.notes.filter((item) => item.id !== action.payload);
+    deleteNoteInState(state, { payload }: PayloadAction<string>) {
+      state.notes = state.notes.filter((item) => item.id !== payload);
     },
     resetIsNotesFetching(state) {
       state.isLoading = false;
-    },
-    editNoteInState(state, action) {
-      state.notes = state.notes.map((note) => {
-        if (note.id === action.payload.id) {
-          return {
-            name: action.payload.name,
-            content: action.payload.content,
-            id: note.id,
-            comments: note.comments,
-          };
-        }
-        return note;
-      });
-    },
-    addComment(state, action) {
-      state.notes = state.notes.map((note) => {
-        if (note.id == action.payload.id) {
-          return {
-            ...note,
-            comments: action.payload.comments,
-          };
-        }
-        return note;
-      });
     },
   },
 });
 
 export default notesSlice.reducer;
-export const {
-  setIsNotesFetching,
-  editNoteInState,
-  deleteNoteInState,
-  addNote,
-  setNotes,
-  resetIsNotesFetching,
-  addComment,
-} = notesSlice.actions;
+export const { setIsNotesFetching, deleteNoteInState, addNote, setNotes, resetIsNotesFetching } = notesSlice.actions;
