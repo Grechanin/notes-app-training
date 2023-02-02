@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import { useAppDispatch, useAppSelector } from 'components/hooks/redux';
 import { editNote, setNewNote } from 'store/actions';
@@ -26,6 +27,8 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
       : {
           name: '',
           content: '',
+          comments: [],
+          id: v4(),
         };
 
   const { values, handleChange, handleSubmit, setSubmitting, isSubmitting, dirty } = useFormik({

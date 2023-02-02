@@ -1,28 +1,23 @@
 import { v4 } from 'uuid';
 
-import { addCommentToLS, addNoteToLS, editNoteInLS, getNotes, removeNoteFromLS } from 'api/localStorage';
-import {
-  addComment,
-  addNote,
-  deleteNoteInState,
-  editNoteInState,
-  resetIsNotesFetching,
-  setIsNotesFetching,
-  setNotes,
-} from 'store/notes-slice';
+import { addNoteToLS, getNotes, removeNoteFromLS, setEditedNotesInLS } from 'api/localStorage';
+import { addNote, deleteNoteInState, resetIsNotesFetching, setIsNotesFetching, setNotes } from 'store/notes-slice';
 import { Note } from 'store/notes-slice.types';
 import { AppDispatch } from 'store/store';
 
-export const setNewNote = (values: any) => async (dispatch: AppDispatch) => {
+export const fetchNotes = () => async (dispatch: AppDispatch) => {
+  const notes = getNotes();
   dispatch(setIsNotesFetching());
-  const newNote = {
-    name: values.name,
-    content: values.content,
-    comments: [],
-    id: v4(),
-  };
-  const note = addNoteToLS(newNote);
-  dispatch(addNote(note));
+  dispatch(setNotes(notes));
+  dispatch(resetIsNotesFetching());
+};
+
+export const setNewNote = (values: Note) => async (dispatch: AppDispatch) => {
+  dispatch(setIsNotesFetching());
+  const note = addNoteToLS(values);
+  if (note) {
+    dispatch(addNote(note));
+  }
   dispatch(resetIsNotesFetching());
 };
 
@@ -33,7 +28,7 @@ export const removeNote = (values: string) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const editNote = (values: any) => async (dispatch: AppDispatch) => {
+export const editNote = (values: Note) => async (dispatch: AppDispatch) => {
   let notes = getNotes();
   let UpdatingNote = notes.find((items: Note) => items.id === values.id);
   UpdatingNote = {
@@ -43,20 +38,21 @@ export const editNote = (values: any) => async (dispatch: AppDispatch) => {
     id: UpdatingNote.id,
   };
   notes = [...notes.filter((item: Note) => item.id !== values.id), { ...UpdatingNote }];
-  const isEdited = editNoteInLS(notes);
-  if (isEdited) {
-    dispatch(editNoteInState(UpdatingNote));
+  const notesUpdated = setEditedNotesInLS(notes);
+  if (notesUpdated) {
+    dispatch(setNotes(notesUpdated));
   }
 };
 
-export const fetchNotes = () => async (dispatch: AppDispatch) => {
-  const notes = getNotes();
-  dispatch(setIsNotesFetching());
-  dispatch(setNotes(notes));
-  dispatch(resetIsNotesFetching());
+type SetNewCommentProps = {
+  noteId: string | undefined;
+  content: string;
+  name: string;
+  surname: string;
 };
 
-export const setNewComment = (values: any) => async (dispatch: AppDispatch) => {
+export const setNewComment = (values: SetNewCommentProps) => async (dispatch: AppDispatch) => {
+  console.log(values);
   dispatch(setIsNotesFetching());
   let notes = getNotes();
   let noteCommented = notes.find((item: Note) => item.id === values.noteId);
@@ -75,8 +71,10 @@ export const setNewComment = (values: any) => async (dispatch: AppDispatch) => {
     id: noteCommented.id,
     comments: [{ ...newComment }, ...noteCommented.comments],
   };
-  notes = notes.filter((item: Note) => item.id !== values.noteId);
-  const noteUpdated = addCommentToLS(notes, noteCommented);
-  dispatch(addComment(noteUpdated));
+  notes = [...notes.filter((item: Note) => item.id !== values.noteId), { ...noteCommented }];
+  const notesUpdated = setEditedNotesInLS(notes);
+  if (notesUpdated) {
+    dispatch(setNotes(notesUpdated));
+  }
   dispatch(resetIsNotesFetching());
 };
