@@ -24,17 +24,16 @@ export const removeNoteFromLS = (values: string) => {
   const notes = getNotes();
   try {
     localStorage.setItem('notes', JSON.stringify(notes.filter((item: Note) => item.id !== values)));
-    return values;
+    return 'ok';
   } catch (e) {
     console.log(e);
   }
 };
 
-export const editNoteInLS = (notes: any, UpdatingNote: Note) => {
-  console.log(notes);
+export const editNoteInLS = (notes: Note) => {
   try {
-    localStorage.setItem('notes', JSON.stringify([...notes, { ...UpdatingNote }]));
-    return UpdatingNote;
+    localStorage.setItem('notes', JSON.stringify(notes));
+    return 'ok';
   } catch (e) {
     console.log(e);
   }

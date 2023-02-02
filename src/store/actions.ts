@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-import { addCommentToLS, addNoteToLS, editNoteInLS, getNotes, removeNoteFromLS } from 'api/api';
+import { addCommentToLS, addNoteToLS, editNoteInLS, getNotes, removeNoteFromLS } from 'api/localStorage';
 import {
   addComment,
   addNote,
@@ -28,7 +28,9 @@ export const setNewNote = (values: any) => async (dispatch: AppDispatch) => {
 
 export const removeNote = (values: string) => async (dispatch: AppDispatch) => {
   const noteId = removeNoteFromLS(values);
-  dispatch(deleteNoteInState(noteId));
+  if (noteId === 'ok') {
+    dispatch(deleteNoteInState(values));
+  }
 };
 
 export const editNote = (values: any) => async (dispatch: AppDispatch) => {
@@ -40,9 +42,11 @@ export const editNote = (values: any) => async (dispatch: AppDispatch) => {
     comments: UpdatingNote.comments,
     id: UpdatingNote.id,
   };
-  notes = notes.filter((item: Note) => item.id !== values.id);
-  const noteEdited = editNoteInLS(notes, UpdatingNote);
-  dispatch(editNoteInState(noteEdited));
+  notes = [...notes.filter((item: Note) => item.id !== values.id), { ...UpdatingNote }];
+  const isEdited = editNoteInLS(notes);
+  if (isEdited) {
+    dispatch(editNoteInState(UpdatingNote));
+  }
 };
 
 export const fetchNotes = () => async (dispatch: AppDispatch) => {
