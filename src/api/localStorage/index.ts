@@ -20,10 +20,10 @@ export const addNoteToLS = (newNote: Note) => {
   }
 };
 
-export const removeNoteFromLS = (values: string) => {
+export const removeNoteFromLS = (noteId: string) => {
   const notes = getNotes();
   try {
-    localStorage.setItem('notes', JSON.stringify(notes.filter((item: Note) => item.id !== values)));
+    localStorage.setItem('notes', JSON.stringify(notes.filter((item: Note) => item.id !== noteId)));
     return 'ok';
   } catch (e) {
     console.log(e);

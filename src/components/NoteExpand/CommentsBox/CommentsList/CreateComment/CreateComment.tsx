@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import { useAppDispatch } from 'components/hooks/redux';
 import { setNewComment } from 'store/actions';
@@ -14,6 +15,7 @@ const CreateComment = () => {
   const { id } = useParams<{ id: string }>() || undefined;
   const initialFormValues = {
     noteId: id,
+    id: v4(),
     content: '',
     name: '',
     surname: '',

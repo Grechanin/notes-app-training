@@ -1,5 +1,3 @@
-import { v4 } from 'uuid';
-
 import { addNoteToLS, getNotes, removeNoteFromLS, setEditedNotesInLS } from 'api/localStorage';
 import { addNote, deleteNoteInState, resetIsNotesFetching, setIsNotesFetching, setNotes } from 'store/notes-slice';
 import { Note } from 'store/notes-slice.types';
@@ -23,21 +21,20 @@ export const setNewNote = (values: Note) => async (dispatch: AppDispatch) => {
 
 export const removeNote = (values: string) => async (dispatch: AppDispatch) => {
   const noteId = removeNoteFromLS(values);
-  if (noteId === 'ok') {
+  if (noteId) {
     dispatch(deleteNoteInState(values));
   }
 };
 
 export const editNote = (values: Note) => async (dispatch: AppDispatch) => {
   let notes = getNotes();
-  let UpdatingNote = notes.find((items: Note) => items.id === values.id);
-  UpdatingNote = {
-    name: values.name,
-    content: values.content,
-    comments: UpdatingNote.comments,
-    id: UpdatingNote.id,
-  };
-  notes = [...notes.filter((item: Note) => item.id !== values.id), { ...UpdatingNote }];
+  notes = notes.map((note: Note) => {
+    if (note.id === values.id) {
+      note.name = values.name;
+      note.content = values.content;
+    }
+    return note;
+  });
   const notesUpdated = setEditedNotesInLS(notes);
   if (notesUpdated) {
     dispatch(setNotes(notesUpdated));
@@ -45,6 +42,7 @@ export const editNote = (values: Note) => async (dispatch: AppDispatch) => {
 };
 
 type SetNewCommentProps = {
+  id: string;
   noteId: string | undefined;
   content: string;
   name: string;
@@ -52,12 +50,10 @@ type SetNewCommentProps = {
 };
 
 export const setNewComment = (values: SetNewCommentProps) => async (dispatch: AppDispatch) => {
-  console.log(values);
   dispatch(setIsNotesFetching());
   let notes = getNotes();
-  let noteCommented = notes.find((item: Note) => item.id === values.noteId);
   const newComment = {
-    id: v4(),
+    id: values.id,
     content: values.content,
     author: {
       name: values.name.charAt(0).toUpperCase() + values.name.slice(1),
@@ -65,13 +61,12 @@ export const setNewComment = (values: SetNewCommentProps) => async (dispatch: Ap
     },
     created_at: new Date().toLocaleString(),
   };
-  noteCommented = {
-    name: noteCommented.name,
-    content: noteCommented.content,
-    id: noteCommented.id,
-    comments: [{ ...newComment }, ...noteCommented.comments],
-  };
-  notes = [...notes.filter((item: Note) => item.id !== values.noteId), { ...noteCommented }];
+  notes = notes.map((note: Note) => {
+    if (note.id === values.noteId) {
+      note.comments.unshift(newComment);
+    }
+    return note;
+  });
   const notesUpdated = setEditedNotesInLS(notes);
   if (notesUpdated) {
     dispatch(setNotes(notesUpdated));
