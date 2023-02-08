@@ -5,8 +5,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { v4 } from 'uuid';
 
+import { addCommentToNote } from 'api/localStorage';
 import { useAppDispatch } from 'components/hooks/redux';
-import { setNewComment } from 'store/actions';
 
 import styles from './CreateComment.module.scss';
 
@@ -26,7 +26,7 @@ const CreateComment = () => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        dispatch(setNewComment(values));
+        dispatch(addCommentToNote(values));
         setSubmitting(false);
         resetForm();
       }, 400);
