@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-import { editeNoteById } from 'api/localStorage';
+import { addNoteToLS, editeNoteById } from 'api/localStorage';
 import { useAppDispatch, useAppSelector } from 'components/hooks/redux';
-import { setNewNote } from 'store/actions';
+import { addNote, editNote, setIsNotesFetching } from 'store/notes-slice';
 import { selectNoteById } from 'store/selectors';
 
 import styles from './NoteForm.module.scss';
@@ -37,8 +37,11 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        isEdit ? dispatch(editeNoteById(values)) : dispatch(setNewNote(values));
+        dispatch(setIsNotesFetching(true));
+        isEdit ? dispatch(editeNoteById(values)) : addNoteToLS(values);
         setSubmitting(false);
+        isEdit ? dispatch(editNote(values)) : dispatch(addNote(values));
+        dispatch(setIsNotesFetching(false));
         navigate('/');
       }, 400);
     },

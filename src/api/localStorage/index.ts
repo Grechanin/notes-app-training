@@ -1,6 +1,4 @@
-import { resetIsNotesFetching, setIsNotesFetching, setNotes } from 'store/notes-slice';
 import { Note } from 'store/notes-slice.types';
-import { AppDispatch } from 'store/store';
 
 export const getNotes = () => {
   try {
@@ -32,8 +30,7 @@ export const removeNoteFromLS = (noteId: string) => {
   }
 };
 
-export const editeNoteById = (values: Note) => async (dispatch: AppDispatch) => {
-  dispatch(setIsNotesFetching());
+export const editeNoteById = (values: Note) => async () => {
   let notes = getNotes();
   notes = notes.map((note: Note) => {
     if (note.id === values.id) {
@@ -43,8 +40,6 @@ export const editeNoteById = (values: Note) => async (dispatch: AppDispatch) => 
     return note;
   });
   localStorage.setItem('notes', JSON.stringify(notes));
-  dispatch(setNotes(notes));
-  dispatch(resetIsNotesFetching());
 };
 
 type SetNewCommentProps = {
@@ -55,24 +50,6 @@ type SetNewCommentProps = {
   surname: string;
 };
 
-export const addCommentToNote = (values: SetNewCommentProps) => async (dispatch: AppDispatch) => {
-  dispatch(setIsNotesFetching());
-  let notes = getNotes();
-  notes = notes.map((note: Note) => {
-    if (note.id === values.noteId) {
-      note.comments.unshift({
-        id: values.id,
-        content: values.content,
-        author: {
-          name: values.name.charAt(0).toUpperCase() + values.name.slice(1),
-          surname: values.surname.charAt(0).toUpperCase() + values.surname.slice(1),
-        },
-        created_at: new Date().toLocaleString(),
-      });
-    }
-    return note;
-  });
+export const addCommentToNote = (notes: SetNewCommentProps) => async () => {
   localStorage.setItem('notes', JSON.stringify(notes));
-  dispatch(setNotes(notes));
-  dispatch(resetIsNotesFetching());
 };

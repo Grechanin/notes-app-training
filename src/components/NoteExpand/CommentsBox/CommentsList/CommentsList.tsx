@@ -1,9 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'components/hooks/redux';
-import { fetchNotes } from 'store/actions';
 import { selectNoteById } from 'store/selectors';
 
 import Comment from './Comment/Comment';
