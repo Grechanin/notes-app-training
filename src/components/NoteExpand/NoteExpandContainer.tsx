@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { selectNoteById } from 'redux/selectors';
 
 import GoBack from 'components/Common/GoBack/GoBack';
 import { useAppSelector } from 'components/hooks/redux';
+import { selectNoteById } from 'store/selectors';
 
 import CommentsBox from './CommentsBox/CommentsBox';
 import NoteContent from './NoteContent/NoteContent';
@@ -18,7 +18,7 @@ const NoteExpandContainer = () => {
       {note && id && (
         <>
           <NoteContent name={note.name} content={note.content} id={id} />
-          <CommentsBox comments={note.comments} />
+          <CommentsBox />
         </>
       )}
     </div>

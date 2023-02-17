@@ -2,17 +2,22 @@ import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addComment } from 'redux/notes-slice';
+import { v4 } from 'uuid';
+
+import { addCommentToNote, getNotes } from 'api/localStorage';
+import { useAppDispatch } from 'components/hooks/redux';
+import { setIsNotesFetching, setNotes } from 'store/notes-slice';
+import { Note } from 'store/notes-slice.types';
 
 import styles from './CreateComment.module.scss';
 
 const CreateComment = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>() || undefined;
   const initialFormValues = {
-    commentId: id,
+    noteId: id,
+    id: v4(),
     content: '',
     name: '',
     surname: '',
@@ -23,9 +28,27 @@ const CreateComment = () => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        dispatch(addComment(values));
+        dispatch(setIsNotesFetching(true));
+        let notes = getNotes();
+        notes = notes.map((note: Note) => {
+          if (note.id === values.noteId) {
+            note.comments.unshift({
+              id: values.id,
+              content: values.content,
+              author: {
+                name: values.name.charAt(0).toUpperCase() + values.name.slice(1),
+                surname: values.surname.charAt(0).toUpperCase() + values.surname.slice(1),
+              },
+              created_at: new Date().toLocaleString(),
+            });
+          }
+          return note;
+        });
+        dispatch(addCommentToNote(notes));
+        dispatch(setNotes(notes));
         setSubmitting(false);
         resetForm();
+        dispatch(setIsNotesFetching(false));
       }, 400);
     },
   });

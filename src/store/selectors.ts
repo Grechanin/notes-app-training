@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { AppStateType } from 'redux/redux-store';
+
+import { AppStateType } from 'store/store';
 
 export const selectNoteById = createSelector(
   [(state: AppStateType) => state.notesPage.notes, (state, noteId: string | undefined) => noteId],
@@ -7,3 +8,4 @@ export const selectNoteById = createSelector(
 );
 
 export const selectAllNotes = (state: AppStateType) => state.notesPage.notes;
+export const getIsFetching = (state: AppStateType) => state.notesPage.isLoading;

@@ -1,18 +1,19 @@
 import Button from '@mui/material/Button';
 import { useFormik } from 'formik';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
-import { addNote, editNote } from 'redux/notes-slice';
-import { selectNoteById } from 'redux/selectors';
+import { v4 } from 'uuid';
 
-import { useAppSelector } from 'components/hooks/redux';
+import { addNoteToLS, editeNoteById } from 'api/localStorage';
+import { useAppDispatch, useAppSelector } from 'components/hooks/redux';
+import { addNote, editNote, setIsNotesFetching } from 'store/notes-slice';
+import { selectNoteById } from 'store/selectors';
 
 import styles from './NoteForm.module.scss';
 
 const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { noteId } = useParams<{ noteId: string }>() || undefined;
   const note = useAppSelector((state) => selectNoteById(state, noteId));
   const navigate = useNavigate();
@@ -22,10 +23,13 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
           id: `${noteId}`,
           name: `${note.name}`,
           content: `${note.content}`,
+          comments: [],
         }
       : {
           name: '',
           content: '',
+          comments: [],
+          id: v4(),
         };
 
   const { values, handleChange, handleSubmit, setSubmitting, isSubmitting, dirty } = useFormik({
@@ -33,8 +37,11 @@ const NoteForm: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
 
     onSubmit: (values) => {
       setTimeout(() => {
-        isEdit ? dispatch(editNote(values)) : dispatch(addNote(values));
+        dispatch(setIsNotesFetching(true));
+        isEdit ? dispatch(editeNoteById(values)) : addNoteToLS(values);
         setSubmitting(false);
+        isEdit ? dispatch(editNote(values)) : dispatch(addNote(values));
+        dispatch(setIsNotesFetching(false));
         navigate('/');
       }, 400);
     },
